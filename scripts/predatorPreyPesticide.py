@@ -4,7 +4,7 @@ import dynamics
 
 
 class PredatorPrey(dynamics.Dynamics):
-    def __init__(self, preyBirth, preyDeath, predBirth, predDeath, time_step):
+    def __init__(self, preyBirth, preyDeath, predBirth, predDeath, pestUse, pestDecay, time_step):
         numEquations = 2                            # set the number of state equations
 
         # set constants
@@ -12,6 +12,8 @@ class PredatorPrey(dynamics.Dynamics):
         self.preyDec = preyDeath
         self.predInc = predBirth
         self.predDec = predDeath
+        self.pestInc = pestUse
+        self.pestDec = pestDecay
 
         super().__init__(numEquations, time_step)   # initialize super class dynamics (Euler Method)
 
@@ -74,13 +76,18 @@ dt = 0.01             # time step size used to update state equations
 # parameters describing the real system
 preyBirth = 0.05
 preyDeath = 0.001
+
 predBirth = 0.0005
 predDeath = 0.01
+
+pestUse = 0.01
+pestDecay = 0.01
+
 initPreyWt = 150.0
 initPredWt = 50.0
 
 # create the simulation and initialize state variables
-P = PredatorPrey(preyBirth, preyDeath, predBirth, predDeath, dt)
+P = PredatorPrey(preyBirth, preyDeath, predBirth, predDeath, pestUse, pestDecay, dt)
 P.initialize(initPreyWt, initPredWt)
 
 # run the simulation

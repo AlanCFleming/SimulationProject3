@@ -20,4 +20,3 @@ class Dynamics:
         for i in range(0, self.numEqs):
             print('q[{0:d}]={1:10f}'.format(i, self.q[i]), end=' ')      # print current value of state equation i
         print(end='\n')
-
