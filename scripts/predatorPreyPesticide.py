@@ -35,7 +35,7 @@ class PredatorPrey(dynamics.Dynamics):
         for i in range(count):
             self.dq[0] = (self.preyInc * self.q[0]) - (self.preyDec * self.q[0] * self.q[1] * math.sqrt(self.q[2]))
             self.dq[1] = (self.predInc * self.q[0] * self.q[1]) - (self.predDec * self.q[1] * self.q[2])
-            self.dq[2] = (self.pestInc * self.q[1] / math.sqrt(self.q[2])) - (self.pestDec * self.q[2])
+            self.dq[2] = (self.pestInc * self.q[1] / math.sqrt(self.q[2])) - (self.pestDec)
             self.step()
         # save the updated state variables after the "count" updates for plotting
         [self.Q[i].append(self.q[i]) for i in range(len(self.q))]
@@ -76,7 +76,7 @@ class PredatorPrey(dynamics.Dynamics):
 # set parameters for predator-prey simulation
 
 # parameters describing the simulation time
-endTime = 1000.0       # length of simulation (i.e. end time)
+endTime = 10000.0       # length of simulation (i.e. end time)
 dt = 0.01             # time step size used to update state equations
 
 # parameters describing the real system
@@ -87,7 +87,7 @@ predBirth = 0.0005
 predDeath = 0.01
 
 pestUse = 0.0005
-pestDecay = 0.01
+pestDecay = 0.05
 
 initPreyWt = 100.0
 initPredWt = 50.0
