@@ -89,9 +89,9 @@ predDeath = 0.01
 pestUse = 0.0005
 pestDecay = 0.05
 
-initPreyWt = 100.0
-initPredWt = 50.0
-initPestWt = 1
+initPreyWt = 20.0
+initPredWt = 60.0
+initPestWt = .5
 
 # create the simulation and initialize state variables
 P = PredatorPrey(preyBirth, preyDeath, predBirth, predDeath, pestUse, pestDecay, dt)
