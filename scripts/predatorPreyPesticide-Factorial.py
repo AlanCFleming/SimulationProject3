@@ -82,7 +82,7 @@ class PredatorPrey(dynamics.Dynamics):
 endTime = 10000.0       # length of simulation (i.e. end time)
 dt = 0.01             # time step size used to update state equations
 
-# parameters describing the real system
+# parameters describing the real system in a stable state
 preyBirth = 0.05
 preyDeath = 0.001
 
@@ -96,14 +96,64 @@ initPreyWt = 20.0
 initPredWt = 60.0
 initPestWt = .5
 
-# create the simulation and initialize state variables
-P = PredatorPrey(preyBirth, preyDeath, predBirth, predDeath, pestUse, pestDecay, dt)
-P.initialize(initPreyWt, initPredWt, initPestWt)
+scale = 0.1         #ammount to scale stable values by to get high and low
+displayInterval = 1 #number of state updates before saving state
 
-# run the simulation
-displayInterval = 1         # number of state updates before saving state
-while P.now() < endTime:
-    P.advance(displayInterval)
-P.print()               # call print to see numeric values of state per display interval
 
-P.plot()                    # call custom plot
+# create the simulation and initialize state variables in a stable state
+#P = PredatorPrey(preyBirth, preyDeath, predBirth, predDeath, pestUse, pestDecay, dt)
+#P.initialize(initPreyWt, initPredWt, initPestWt)
+
+#run the stable simulation
+#while P.now() < endTime:
+#    P.advance(displayInterval)
+#P.print()               # call print to see numeric values of state per display interval
+#
+#P.plot()                    # call custom plot
+
+
+#print headers
+print("Prey Birth , Prey Death , Predator Birth , Predator Death , Pesticide Increase , Pesticide Decrease , Average Prey Population , Average Predator Population , Average Pesticide Population")
+
+##nested loop for factorial - could potentially be made more effecient using modulus or other functions instead of nested loop
+#loop for prey birth
+for i in range(2):
+    #adjust preyBirth to be high or low
+    preyB = (preyBirth - (preyBirth * scale)) if i == 0 else (preyBirth + (preyBirth * scale))
+    
+    #loop for prey death
+    for j in range(2):
+        #adjust preyDeath to be high or low
+        preyD = (preyDeath - (preyDeath * scale)) if j == 0 else (preyDeath + (preyDeath * scale))
+        
+        #loop for predator birth
+        for k in range(2):
+            #adjust preyBirth to be high or low
+            predB = (predBirth - (predBirth * scale)) if k == 0 else (predBirth + (predBirth * scale))
+            
+            #loop for predator death
+            for l in range(2):
+                #adjust preyBirth to be high or low
+                predD = (predDeath - (predDeath * scale)) if l == 0 else (predDeath + (predDeath * scale))
+
+                #loop for prestacide increase - Use pestB instead of pestI for consistancy sake
+                for m in range(2):
+                    #adjust pestUse to be high or low
+                    pestB = (pestUse - (pestUse * scale)) if m == 0 else (pestUse + (pestUse * scale))
+
+                    #loop for prestacide decrease
+                    for n in range(2):
+                        #adjust pestDecay to be high or low
+                        pestD = (pestDecay - (pestDecay * scale)) if n == 0 else (pestDecay + (pestDecay * scale))
+                        
+                        #prepare a model using the adjusted parameters
+                        model = PredatorPrey(preyB, preyD, predB, predD, pestB, pestD, dt)
+                        model.initialize(initPreyWt, initPredWt, initPestWt)
+                        
+                        #run a simulation of the model
+                        while model.now() < endTime:
+                            model.advance(displayInterval)
+
+                        #print model identifier and stats
+                        print(i, j , k , l , m , n , sep=" , " , end=" , ")
+                        model.print()
