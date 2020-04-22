@@ -46,7 +46,7 @@ class PredatorPrey(dynamics.Dynamics):
         #print('time={0:10f} prey={1:10f} predator={2:10f} pesticide={3:10f}'.format(self.time, self.q[0], self.q[1], self.q[2]))
         
         #print the average populations from checkpoints
-        print(sum(self.Q[0])/len(self.Q[0]) , sum(self.Q[1])/len(self.Q[1]) , sum(self.Q[2])/len(self.Q[2])) 
+        print(sum(self.Q[0])/len(self.Q[0]) , sum(self.Q[1])/len(self.Q[1]) , sum(self.Q[2])/len(self.Q[2]), sep=" , ") 
 
     def plot(self):
         # custom plot for current simulation
