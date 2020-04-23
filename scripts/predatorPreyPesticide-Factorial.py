@@ -67,14 +67,47 @@ class PredatorPrey(dynamics.Dynamics):
         plt.plot(self.T, self.Q[0], 'k', self.T, self.Q[1], 'r--', self.T, self.Q[2], 'b--')
         plt.ylabel('parameter')
         plt.xlabel('time')
+        plt.tight_layout()
 
         plt.figure()
         plt.plot(self.Q[0], self.Q[1], 'b')
         plt.ylabel('predator')
         plt.xlabel('prey')
 
+        plt.tight_layout()
         plt.show()
+        plt.close('all')
 
+    def save(self, preyB, preyD, predB, predD, pestB, pestD):
+        # custom plot for current simulation
+        plt.figure()
+        plt.plot(self.T, self.Q[0], 'k')
+        plt.ylabel('prey')
+        plt.savefig("../plots/" + (str(preyB) + str(preyD) + str(predB) + str(predD) + str(pestB) + str(pestD) + "-prey.png"))
+
+        plt.figure()
+        plt.plot(self.T, self.Q[1], 'r')
+        plt.ylabel('predator')
+        plt.savefig("../plots/" + (str(preyB) + str(preyD) + str(predB) + str(predD) + str(pestB) + str(pestD) + "-predator.png"))
+
+        plt.figure()
+        plt.plot(self.T, self.Q[2], 'b')
+        plt.ylabel('pesticide')
+        plt.savefig("../plots/" + (str(preyB) + str(preyD) + str(predB) + str(predD) + str(pestB) + str(pestD) + "-pesticide.png"))
+
+        plt.figure()
+        plt.plot(self.T, self.Q[0], 'k', self.T, self.Q[1], 'r--', self.T, self.Q[2], 'b--')
+        plt.ylabel('parameter')
+        plt.xlabel('time')
+        plt.savefig("../plots/" + (str(preyB) + str(preyD) + str(predB) + str(predD) + str(pestB) + str(pestD) + "-parameter.png"))
+
+        plt.figure()
+        plt.plot(self.Q[0], self.Q[1], 'b')
+        plt.ylabel('predator')
+        plt.xlabel('prey')
+
+        plt.savefig("../plots/" + (str(preyB) + str(preyD) + str(predB) + str(predD) + str(pestB) + str(pestD) + "-vs.png"))
+        plt.close('all')
 
 # set parameters for predator-prey simulation
 
@@ -157,3 +190,6 @@ for i in range(2):
                         #print model identifier and stats
                         print(i, j , k , l , m , n , sep=" , " , end=" , ")
                         model.print()
+                        
+                        #save plots
+                        model.save(i, j , k , l , m , n) 
